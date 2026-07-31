@@ -1,0 +1,37 @@
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: proxy-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - backend-082
+    networks:
+      - mi-red
+
+  servidor-bd-082:
+    image: mysql:8.0
+    container_name: servidor-bd-082
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+    networks:
+      - mi-red
+
+  backend-082:
+    build: .
+    container_name: backend-082
+    restart: always
+    depends_on:
+      - servidor-bd-082
+    expose:
+      - "5050"
+    networks:
+      - mi-red
+
+networks:
+  mi-red:
+    driver: bridge
