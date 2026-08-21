@@ -54,5 +54,5 @@
               script: |
                 cd ~/Docker-hub
                 docker pull app-backend
-                docker up -d
+                docker compose up -d
                      
