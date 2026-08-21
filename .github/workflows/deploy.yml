@@ -35,5 +35,4 @@
                       cd ~/Docker-hub
                       docker pull app-backend
                       docker up -d 
-                      docker rm mi-api || true
-                      docker run -d --name mi-api -p 80:80 sky2712/mi-api:latest
+                     
